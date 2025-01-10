@@ -1,9 +1,11 @@
 const { Pool } = require("pg");
 
-module.exports = new Pool({
-  host: "localhost",
-  user: process.env.DB_USER,
-  database: "message_board",
-  password: process.env.DB_PWD,
-  port: 5432, // The default port
+// Use the DATABASE_URL environment variable for Railway
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Required for Railway PostgreSQL
+  },
 });
+
+module.exports = pool;

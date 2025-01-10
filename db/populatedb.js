@@ -42,7 +42,10 @@ async function populateDatabase() {
 
     // Initialize the client
     client = new Client({
-      connectionString: `postgresql://${process.env.DB_USER}:${process.env.DB_PWD}@localhost:5432/message_board`,
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false, // Required for Railway PostgreSQL
+      },
     });
 
     // Connect to the database
